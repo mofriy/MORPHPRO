@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+  <title>MORPH-PRO</title>
+  <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="BAJauCJhGQ1PNRA2D5Rlo71APN17OD+K4/HkGnRtD7y9qw7lVT3eoL8T1xzl1wjMULpbTz+x7Dhnn8i2UcoN0g==" />
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/blueprint/screen.css' %}" />
+<link rel="stylesheet" media="print" href="{% static 'stylesheets/blueprint/print.css' %}" />
+<!--[if lt IE 8]><link rel="stylesheet" media="screen" href="{% static 'stylesheets/blueprint/ie.css' %}" /><![endif]-->
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/custom.css' %}" />
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/common.css' %}" />
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/pages.css' %}" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" />
+    <!--here is that all.js error-->
+  <!--<script src="/javascripts/all.js"></script>-->
+</head>
+<body>
+  <div class="container">
+    <header>
+  <a href="/"><img alt="Morphing server" class="round" src="{% static 'images/logo.png' %}" /></a>
+<nav class="round">
+  <ul>
+    <li><a href="/">home</a></li>
+
+    <li><a href="/morph_requests/new">morph!</a></li>
+    <li><a href="/morph_requests">archive</a></li>
+        <li><a href="/users/sign_in">sign in</a></li>
+  </ul>
+</nav>
+</header>
+
+    <section class="round">
+      <h1>Help</h1>
+
+<h3>Signing In</h3>
+We kindly ask you to register before you start using our server. As soon as you get a username and a password, you can sign in and submit your morphing requests.
+In order to sign in or to register, please follow the link in the main menu.
+
+<h3>Submitting a Request</h3>
+To submit a morphing request, please follow "morph!" link in the main menu. At the first stage, please provide the names of the two PDB files representing
+the starting and the ending conformations, and either indicate a desired number of intermediate confirmations or let the system choose it automatically
+(default option). Next, please choose a preferred interpolation mehtod and graphics engine to be used, and press "Perform morph" button.
+
+<h3>Viewing the Results</h3>
+After the interpolation between the starting and the ending conformations is completed, a 3D-model of the starting confirmation will be displayed in your browser.
+You will be able to follow the morphing process either step by step or in the play mode, and to rotate and zoom the protein model using the mouse and the hot keys.
+To be prompted about the hot keys, please choose "help" menu at the bottom of the viewing window. In addition, you may select a desired level for displaying the
+protein model, from the four options provided in "settings" menu.
+
+    </section>
+
+    <footer>
+  <nav class="round">
+      <ul>
+        <li><a href="/about">about</a></li>
+        <li><a href="/contacts">contacts</a></li>
+        <li><a href="/help">help</a></li>
+      </ul>
+  </nav>
+</footer>
+
+  </div>
+</body>
+</html>

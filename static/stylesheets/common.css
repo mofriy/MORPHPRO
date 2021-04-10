@@ -1,0 +1,17 @@
+/* Decoration styles */
+body{
+    font-family: "Helvetica";
+}
+.round {
+    -moz-border-radius:    10px;
+    -webkit-border-radius: 10px;
+    border-radius:         10px;
+}
+
+a:visited {
+    color: #095a69;
+}
+
+a {
+    color: #458aa7;
+}

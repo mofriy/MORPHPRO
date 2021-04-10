@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+  <title>MORPH-PRO</title>
+  <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="BAJauCJhGQ1PNRA2D5Rlo71APN17OD+K4/HkGnRtD7y9qw7lVT3eoL8T1xzl1wjMULpbTz+x7Dhnn8i2UcoN0g==" />
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/blueprint/screen.css' %}" />
+<link rel="stylesheet" media="print" href="{% static 'stylesheets/blueprint/print.css' %}" />
+<!--[if lt IE 8]><link rel="stylesheet" media="screen" href="{% static 'stylesheets/blueprint/ie.css' %}" /><![endif]-->
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/custom.css' %}" />
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/common.css' %}" />
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/pages.css' %}" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" />
+    <!--here is that all.js error-->
+  <!--<script src="/javascripts/all.js"></script>-->
+</head>
+<body>
+  <div class="container">
+    <header>
+  <a href="/"><img alt="Morphing server" class="round" src="{% static 'images/logo.png' %}" /></a>
+<nav class="round">
+  <ul>
+    <li><a href="/">home</a></li>
+
+    <li><a href="/morph_requests/new">morph!</a></li>
+    <li><a href="/morph_requests">archive</a></li>
+        <li> <a href="/users/sign_out">sign out</a></li>
+  </ul>
+  <div id="user-greeting">
+    Signed in as <strong></strong>
+
+  </div>
+</nav>
+</header>
+
+        <!--TODO: make this work-->
+        <!--<div class="notice  message round" id="notice_notice">Welcome! You have signed up successfully.</div>-->
+    <section class="round">
+      <h3>Welcome to the MORPH-PRO server!</h3>
+
+<br />
+
+Our server provides you with the following options: <br /><br />
+
+<ul>
+    <li><a href="/morph_requests/new">Upload</a> your own pdb files representing proteins</li>
+    <li>Perform morphing and examine results in your browser without any plug-ins</li>
+    <li>Easily share your morphing results with your colleagues</li>
+</ul>
+
+
+
+
+    </section>
+    <footer>
+  <nav class="round">
+      <ul>
+        <li><a href="/about">about</a></li>
+        <li><a href="/contacts">contacts</a></li>
+        <li><a href="/help">help</a></li>
+      </ul>
+  </nav>
+</footer>
+
+  </div>
+</body>
+</html>
