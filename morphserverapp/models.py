@@ -1,6 +1,5 @@
 from django.db import models
-#import django_sha2.hashers as hasher
-
+from django.utils import timezone
 # Create your models here.
 
 class User(models.Model):
@@ -11,15 +10,19 @@ class User(models.Model):
 
     password = models.CharField(max_length=256)
 
-    remember_me = models.BooleanField(default=False)
-
-    is_admin = models.BooleanField(default=False)
-
     user_created_at = models.DateTimeField()
     user_updated_at = models.DateTimeField()
 
-    reset_password_token = models.CharField(max_length=256)
 
+    @classmethod
+    def create_user(cls,data_dict):
+        user = cls()
+        user.name=data_dict['name']
+        user.email=data_dict['email']
+        user.password=data_dict['password']
+        user.user_created_at=timezone.now()
+        user.user_updated_at=timezone.now()
+        return user
 
 class MorphRequest(models.Model):
 

@@ -14,6 +14,8 @@
 
 
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" />
+    <!--here is that all.js error-->
+  <!--<script src="/javascripts/all.js"></script>-->
 </head>
 <body>
   <div class="container">
@@ -25,31 +27,28 @@
 
     <li><a href="/morph_requests/new">morph!</a></li>
     <li><a href="/morph_requests">archive</a></li>
-        <li><a href="/user/sign_in">sign in</a></li>
+        <li><a href="/users/sign_in">sign in</a></li>
   </ul>
-      <div id="user-greeting">
-    <strong>{{user_greeting}}</strong>
-
-  </div>
 </nav>
 </header>
 
     <section class="round">
-      <h1>About</h1>
-<b><big> MorphPro</big></b> is a collaborative project of
-<ul>
-    <br /><li> <a href="http://www-cse.ucsd.edu/" target="_blank">Department of Computer Science</a>, University of California-San Diego (USA)</li><br />
-    <li> <a href="http://www.sanfordburnham.org/" target="_blank">Burnham Institute for Medical Research</a>, La Jolla, CA (USA)</li><br />
-    <li> <a href="http://www.jcsg.org/" target="_blank">Joint Center for Structural Genomics, Bioinformatics Core</a>, University of California-San Diego (USA)</li><br />
-        <!--probably should change this link-->
-    <li> <a href="http://cab.spbu.ru/" target="_blank">Algorithmic Biology Lab</a>, Academic University (Russia) </li><br />
-</ul>
-<!--
-<br />
-<b>Paper</b><br />
-Natalie Castellana, Piotr Rotkiewicz, Natasha Sefcovic, Hongbin Yuan, Maurizio Pellecchia, Pavel A. Pevzner, and Adam Godzic.<br />
-<i>A Novel Algorithm and Web Server for Protein Morphing</i>. (submitted)
--->
+      <h2>Registration</h2>
+
+<form action="sign_up" method="post" >
+    {{registration_form.as_p}}
+    {% csrf_token %}
+    <p><input type="submit" value="Create my account"></p>
+</form>
+
+
+  <a href="/user/sign_in">Sign in</a><br />
+
+
+  <a href="/users/password/new">Forgot your password?</a><br />
+
+
+
 
 
     </section>

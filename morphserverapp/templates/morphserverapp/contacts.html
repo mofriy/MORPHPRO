@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 {% load static %}
+{% csrf_token %}
 <head>
   <title>MORPH-PRO</title>
-  <meta name="csrf-param" content="authenticity_token" />
-<meta name="csrf-token" content="bUQsv798Tg/1XudmcLpQ3pFalb+Xoc1NMVWk7h4XcVfU7XjiyCCJogV4IEya+T2xfKDyLdMoHv+1O4hCO7BzOQ==" />
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <link rel="stylesheet" media="screen" href="{% static 'stylesheets/blueprint/screen.css' %}" />
 <link rel="stylesheet" media="print" href="{% static 'stylesheets/blueprint/print.css' %}" />
@@ -26,8 +25,12 @@
 
     <li><a href="/morph_requests/new">morph!</a></li>
     <li><a href="/morph_requests">archive</a></li>
-        <li><a href="/users/sign_in">sign in</a></li>
+        <li><a href="/user/sign_in">sign in</a></li>
   </ul>
+      <div id="user-greeting">
+    <strong>{{user_greeting}}</strong>
+
+  </div>
 </nav>
 </header>
 
