@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 {% load static %}
-{% csrf_token %}
 <head>
   <title>MORPH-PRO</title>
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -36,9 +35,20 @@
       <h2>Registration</h2>
 
 <form action="sign_up" method="post" >
-    {{registration_form.as_p}}
     {% csrf_token %}
-    <p><input type="submit" value="Create my account"></p>
+  <p><label for="user_name">Name</label><br />
+  <input type="text" name="name" id="user_name" /></p>
+
+  <p><label for="user_email">Email</label><br />
+  <input type="email" name="email" id="user_email" /></p>
+
+  <p><label for="user_password">Password</label><br />
+  <input type="password" name="password" id="user_password" /></p>
+
+  <p><label for="user_password_confirmation">Password confirmation</label><br />
+  <input type="password" name="password_confirmation" id="user_password_confirmation" /></p>
+
+  <p><input type="submit" value="Create my account"></p>
 </form>
 
 

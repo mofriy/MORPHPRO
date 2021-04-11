@@ -36,8 +36,17 @@
       <h2>Sign in</h2>
 
 <form action="sign_in" method="post" >
-    {{sign_in_form.as_p}}
     {% csrf_token %}
+
+  <p><label for="user_email">Email</label><br />
+  <input type="email" name="email" id="user_email" /></p>
+
+  <p><label for="user_password">Password</label><br />
+  <input type="password" name="password" id="user_password" /></p>
+
+    <p><label for="remember_me">Remember me</label>
+        <input type="checkbox" name="remember_me" id="remember_me" /></p>
+
     <p><input type="submit" value="Sign in"></p>
 </form>
 
