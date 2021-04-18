@@ -45,6 +45,10 @@ def sign_up(request):
             messages.add_message(request, messages.ERROR, 'Please enter name')
             return HttpResponseRedirect('./sign_up')
 
+        if request.POST.get('name').lower() == 'anonymous' :
+            messages.add_message(request, messages.ERROR, 'Unpermitted name')
+            return HttpResponseRedirect('./sign_up')
+
         if len(request.POST.get('email')) == 0:
             messages.add_message(request, messages.ERROR, 'Please enter email')
             return HttpResponseRedirect('./sign_up')
@@ -189,10 +193,13 @@ def archive(request):
 
     for mr in MorphRequest.objects.all():
         try:
-            author = User.objects.get(pk=mr.author)
+            if mr.author != 0:
+                author = User.objects.get(pk=mr.author).name
+            else:
+                author = 'Anonymous'
         except User.DoesNotExist:
             return HttpResponseRedirect('../')
-        all_mr_table.append([str(author.name),str(mr.created_at)[:len(str(mr.created_at))-7],str(mr.protein_a_name),str(mr.protein_b_name),
+        all_mr_table.append([str(author),str(mr.created_at)[:len(str(mr.created_at))-7],str(mr.protein_a_name),str(mr.protein_b_name),
                          str(mr.morphing_count),'/morph/'+str(mr.id)])
     return HttpResponse(archive_template.render({'morph_requests':all_mr_table,'user_greeting':request.session.get('name')},request))
 
@@ -240,12 +247,16 @@ def morph_request(request,mr_id):
     morph_request_template = loader.get_template('morphserverapp/morph_request.html')
     try:
         mr = MorphRequest.objects.get(pk=mr_id)
-        submitter = User.objects.get(pk=mr.author)
+        if mr.author != 0:
+            submitter = User.objects.get(pk=mr.author).name
+        else:
+            submitter = 'Anonymous'
     except MorphRequest.DoesNotExist or User.DoesNotExist:
         return HttpResponseRedirect('../')
 
+
     return HttpResponse(morph_request_template.render({'user_greeting':request.session.get('name'),
-                                                       'morph_request':mr,'submitter':submitter.name},request))
+                                                       'morph_request':mr,'submitter':submitter},request))
 
 
 
