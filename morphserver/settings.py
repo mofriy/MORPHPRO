@@ -122,7 +122,7 @@ USE_I18N = False
 
 USE_L10N = False
 
-USE_TZ = True
+USE_TZ = False
 
 FIRST_DAY_OF_WEEK = 1
 

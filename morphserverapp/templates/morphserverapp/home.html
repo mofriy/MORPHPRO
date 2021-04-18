@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html>
 {% load static %}
-{% csrf_token %}
 <head>
   <title>MORPH-PRO</title>
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <link rel="stylesheet" media="screen" href="{% static 'stylesheets/blueprint/screen.css' %}" />
 <link rel="stylesheet" media="print" href="{% static 'stylesheets/blueprint/print.css' %}" />
-<!--[if lt IE 8]><link rel="stylesheet" media="screen" href="{% static 'stylesheets/blueprint/ie.css' %}" /><![endif]-->
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/blueprint/ie.css' %}" />
 <link rel="stylesheet" media="screen" href="{% static 'stylesheets/custom.css' %}" />
 <link rel="stylesheet" media="screen" href="{% static 'stylesheets/common.css' %}" />
 <link rel="stylesheet" media="screen" href="{% static 'stylesheets/pages.css' %}" />
 
 
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" />
-    <!--here is that all.js error-->
-  <!--<script src="/javascripts/all.js"></script>-->
+
 </head>
 <body>
   <div class="container">
@@ -25,19 +23,36 @@
   <ul>
     <li><a href="/">home</a></li>
 
-    <li><a href="/morph_requests/new">morph!</a></li>
-    <li><a href="/morph_requests">archive</a></li>
+    <li><a href="/morph/new">morph!</a></li>
+      {% if user_greeting %}
+      <li><a href="/history">my requests</a></li>
+      {% endif %}
+    <li><a href="/morph/archive">archive</a></li>
+      {% if user_greeting %}
+      <li> <a href="/user/sign_out">sign out</a></li>
+      {% else %}
       <li> <a href="/user/sign_in">sign in</a></li>
+      {% endif %}
   </ul>
   <div id="user-greeting">
-    <strong>{{user_greeting}}</strong>
+      {% if user_greeting %}
+        Signed in as <strong>{{user_greeting}}</strong>
+      {% else %}
+        Not signed in
+      {% endif %}
 
   </div>
 </nav>
 </header>
 
-        <!--TODO: make this work-->
-        <!--<div class="notice  message round" id="notice_notice">Welcome! You have signed up successfully.</div>-->
+    {% if messages %}
+    <div class="notice  message round">
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+    </div>
+    {% endif %}
+
     <section class="round">
       <h3>Welcome to the MORPH-PRO server!</h3>
 

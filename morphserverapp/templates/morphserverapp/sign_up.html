@@ -6,15 +6,14 @@
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <link rel="stylesheet" media="screen" href="{% static 'stylesheets/blueprint/screen.css' %}" />
 <link rel="stylesheet" media="print" href="{% static 'stylesheets/blueprint/print.css' %}" />
-<!--[if lt IE 8]><link rel="stylesheet" media="screen" href="{% static 'stylesheets/blueprint/ie.css' %}" /><![endif]-->
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/blueprint/ie.css' %}" />
 <link rel="stylesheet" media="screen" href="{% static 'stylesheets/custom.css' %}" />
 <link rel="stylesheet" media="screen" href="{% static 'stylesheets/common.css' %}" />
 <link rel="stylesheet" media="screen" href="{% static 'stylesheets/pages.css' %}" />
 
 
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" />
-    <!--here is that all.js error-->
-  <!--<script src="/javascripts/all.js"></script>-->
+
 </head>
 <body>
   <div class="container">
@@ -25,11 +24,19 @@
     <li><a href="/">home</a></li>
 
     <li><a href="/morph_requests/new">morph!</a></li>
-    <li><a href="/morph_requests">archive</a></li>
+    <li><a href="/morph/archive">archive</a></li>
         <li><a href="/users/sign_in">sign in</a></li>
   </ul>
 </nav>
 </header>
+
+    {% if messages %}
+    <div class="notice  message round">
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+    </div>
+    {% endif %}
 
     <section class="round">
       <h2>Registration</h2>
@@ -55,7 +62,7 @@
   <a href="/user/sign_in">Sign in</a><br />
 
 
-  <a href="/users/password/new">Forgot your password?</a><br />
+  <a href="/user/reset_password">Forgot your password?</a><br />
 
 
 
