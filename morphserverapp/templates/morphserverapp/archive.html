@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+<title>MORPH-PRO</title>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/blueprint/screen.css' %}" />
+<link rel="stylesheet" media="print" href="{% static 'stylesheets/blueprint/print.css' %}" />
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/blueprint/ie.css' %}" />
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/custom.css' %}" />
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/common.css' %}" />
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/pages.css' %}" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" />
+</head>
+<body>
+  <div class="container">
+    <header>
+  <a href="/"><img alt="Morphing server" class="round" src="{% static 'images/logo.png' %}" /></a>
+<nav class="round">
+  <ul>
+    <li><a href="/">home</a></li>
+
+    <li><a href="/morph/new">morph!</a></li>
+      {% if user_greeting %}
+      <li><a href="/history">my requests</a></li>
+      {% endif %}
+    <li><a href="/morph/archive">archive</a></li>
+      {% if user_greeting %}
+      <li> <a href="/user/sign_out">sign out</a></li>
+      {% else %}
+      <li> <a href="/user/sign_in">sign in</a></li>
+      {% endif %}
+  </ul>
+  <div id="user-greeting">
+      {% if user_greeting %}
+        Signed in as <strong>{{user_greeting}}</strong>
+      {% else %}
+        Not signed in
+      {% endif %}
+  </div>
+</nav>
+</header>
+
+    <section class="round">
+      <h1>Morphing Requests</h1>
+<table id="index-morph-requests">
+    <thead>
+    <tr>
+      <th>submitter</th>
+      <th>date</th>
+      <th>initial</th>
+      <th>target</th>
+      <th>interpolation states</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if morph_requests|length > 0 %}
+    {% for morph_request in morph_requests %}
+      <tr>
+          {% for val in morph_request|slice:":5" %}
+          <td>{{val}}</td>
+          {% endfor %}
+          <td>
+              <form class="button_to" method="get" action="{{morph_request|last}}"><input type="submit" value="show"></form>
+          </td>
+    {% endfor %}
+    {% endif %}
+    </tbody>
+</table>
+
+    </section>
+    <footer>
+  <nav class="round">
+      <ul>
+        <li><a href="/about">about</a></li>
+        <li><a href="/contacts">contacts</a></li>
+        <li><a href="/help">help</a></li>
+      </ul>
+  </nav>
+</footer>
+
+  </div>
+
+</body>
+</html>

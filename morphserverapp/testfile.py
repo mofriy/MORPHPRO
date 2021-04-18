@@ -1,0 +1,2 @@
+if 'asfd':
+    print('q')

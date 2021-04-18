@@ -1,0 +1,87 @@
+<!Doctype HTML>
+<html lang="en">
+  <head>
+    <title>
+      JS client
+    </title>
+    <!--meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/-->
+    <%= javascript_include_tag "Three.js", "Detector.js", "RequestAnimationFrame.js", "jquery-1.6.min.js", "jquery.corner.js" %>
+    <%= javascript_include_tag "web-3D-viewer.js" %>
+    <%= stylesheet_link_tag "jsclient", "common" %>
+    <%= favicon_link_tag(source='icon.ico', options={}) %>
+  </head>
+  <body>
+    <div id="morph-step">Morph</div>
+    <div id="settings" class="popup-window round">
+        <h2>Graphics settings</h2>
+        <!-- величины использую в методе applyOptions()-->
+        <label onclick="applyOptions()"><input type="radio" name="detalization" value="0"/>Low detalization</label><br>
+        <label onclick="applyOptions()"><input type="radio" name="detalization" value="1"/>Medium detalization</label><br>
+        <label onclick="applyOptions()"><input type="radio" name="detalization" value="2"/>High detalization</label><br>
+        <label onclick="applyOptions()"><input type="radio" name="detalization" value="3"/>Great detalization</label><br>
+        <footer><a href="javascript:$('#settings').fadeOut()">close</a></footer>
+    </div>
+    <div id="help" class="popup-window round" onclick="$(this).fadeOut()">
+        <h2>User controls</h2>
+        <div id="text">
+            You can rotate the protein with your mouse using drag-and-drop. In addition, you can use the following hot keys:
+        </div>
+        <table id="keys"><tr>
+                <td><span>h</span>or<span>left arrow</span></td><td>rotate left</td>
+            </tr><tr>
+                <td><span>j</span>or<span>down arrow</span></td><td>rotate down</td>
+            </tr><tr>
+                <td><span>k</span>or<span>up arrow</span></td><td>rotate up</td>
+            </tr><tr>
+                <td><span>l</span>or<span>right arrow</span></td><td>rotate left</td>
+            </tr><tr>
+                <td><span>+</span></td><td>zoom in</td>
+            </tr><tr>
+                <td><span>-</span></td><td>zoom out</td>
+            </tr><tr>
+                <td><span>SPACE</span></td><td>stop any motion</td>
+            </tr><tr>
+                <td><span>n</span></td><td>next morphing step</td>
+            </tr><tr>
+                <td><span>p</span></td><td>previous morphing step</td>
+            </tr><tr>
+                <td><span>t</span></td><td>start/stop morphing playback</td>
+            </tr><tr>
+            </tr>
+        </table>
+        <footer>
+            Click anywhere to close this window.
+        </footer>
+    </div>
+    <%= yield %>
+    <div id="footer" >
+        <a href="<%= about_path %>">About</a>
+        <a href="javascript:setSelection(); $('#settings').fadeIn()">Settings</a>
+        <a href="javascript:$('#help').fadeIn()">Help</a>
+    </div>
+    <script type="text/javascript">
+        // hiding panels & setting round corners
+        $("#footer").corner("top 30px");
+        $("#morph-step").corner("br 30px");
+        //$("#settings").hide();
+        //$("#help").hide();
+
+        function setSelection() {
+            var elems = document.getElementsByName("detalization");
+            elems[getDetalization()].checked = true;
+        }
+        // helper functions
+        function applyOptions() {
+            var elems = document.getElementsByName("detalization");
+            for(var i = 0; i < elems.length; i ++) {
+                if (elems[i].checked) {
+                    var value = i;
+                    break;
+                }
+            }
+            setDetalization(i);
+            $("#settings").fadeOut();
+        }
+    </script>
+  </body>
+</html>

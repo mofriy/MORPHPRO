@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+<title>MORPH-PRO</title>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/blueprint/screen.css' %}" />
+<link rel="stylesheet" media="print" href="{% static 'stylesheets/blueprint/print.css' %}" />
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/blueprint/ie.css' %}" />
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/custom.css' %}" />
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/common.css' %}" />
+<link rel="stylesheet" media="screen" href="{% static 'stylesheets/pages.css' %}" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" />
+</head>
+<body>
+  <div class="container">
+    <header>
+  <a href="/"><img alt="Morphing server" class="round" src="{% static 'images/logo.png' %}" /></a>
+<nav class="round">
+  <ul>
+    <li><a href="/">home</a></li>
+
+    <li><a href="/morph/new">morph!</a></li>
+      {% if user_greeting %}
+      <li><a href="/history">my requests</a></li>
+      {% endif %}
+    <li><a href="/morph/archive">archive</a></li>
+      {% if user_greeting %}
+      <li> <a href="/user/sign_out">sign out</a></li>
+      {% else %}
+      <li> <a href="/user/sign_in">sign in</a></li>
+      {% endif %}
+  </ul>
+  <div id="user-greeting">
+      {% if user_greeting %}
+        Signed in as <strong>{{user_greeting}}</strong>
+      {% else %}
+        Not signed in
+      {% endif %}
+  </div>
+</nav>
+</header>
+    <section class="round">
+      <h3>Details</h3>
+<strong>Submitter: </strong>{{ submitter }}<br>
+<strong>First Protein: </strong>{{ morph_request.protein_a_name }}<br>
+<strong>Second Protein: </strong>{{ morph_request.protein_b_name }}<br>
+<strong>Number of interpolation steps: </strong> {{morph_request.morphing_count}} <br>
+<h3>Morphing</h3>
+<form action="/jsclient/1" accept-charset="UTF-8" method="post">
+<table id="morphing-settings">
+    <thead>
+    <tr><th>
+    Algorithm
+    </th>
+    <th>
+    Graphics Engine
+    </th></tr>
+    </thead>
+    <tbody>
+    <tr><td>
+    <input type="radio" name="algo" id="algo_naive" value="naive" checked="checked">
+    <label for="algo_naive">Linear interpolation</label><br>
+    <input type="radio" name="algo" id="algo_pevzner_oe" value="pevzner_oe" checked="checked">
+    <label for="algo_pevzner_oe">Basic strategy</label><br>
+    <input type="radio" name="algo" id="algo_pevzner_oea" value="pevzner_oea">
+    <label for="algo_pevzner_oea">Simplified strategy</label><br>
+    <input type="radio" name="algo" id="algo_pevzner_oeac" value="pevzner_oeac" onclick="alert('Attention! For large proteins and a sufficiently large number of steps, this method may take several minutes.')">
+    <label for="algo_pevzner_oeac">Advanced strategy</label><br>
+    </td><td>
+    <input type="radio" name="engine" id="engine_webgl" value="webgl" checked="checked">
+    <label for="engine_webgl">Web GL</label><br>
+    <input type="radio" name="engine" id="engine_canvas" value="canvas">
+    <label for="engine_canvas">Regular</label><br>
+    </td></tr>
+    </tbody>
+</table>
+<div style="text-align: center">
+<input type="submit" name="commit" value="Perfrom morph" data-disable-with="Perfrom morph">
+</div>
+</form><h3>Statistics</h3>
+    <ul><li><strong>rmsd</strong> 0.17658757241521528</li></ul>
+    <ul><li><strong>first protein</strong> <ul><li><strong>minimum distance between consecutive residues</strong> 3.8105561273913815</li><li><strong>maximum distance between consecutive residues</strong> 3.8509279401204073</li><li><strong>number of residues</strong> 56</li></ul></li></ul>
+    <ul><li><strong>second protein</strong> <ul><li><strong>minimum distance between consecutive residues</strong> 3.820545668015499</li><li><strong>maximum distance between consecutive residues</strong> 3.85089919662022</li><li><strong>number of residues</strong> 56</li></ul></li></ul>
+
+
+    </section>
+    <footer>
+  <nav class="round">
+      <ul>
+        <li><a href="/about">about</a></li>
+        <li><a href="/contacts">contacts</a></li>
+        <li><a href="/help">help</a></li>
+      </ul>
+  </nav>
+</footer>
+
+  </div>
+
+</body>
+</html>
