@@ -1,5 +1,8 @@
 from django.db import models
 import datetime
+from django.core.files.storage import FileSystemStorage
+
+my_storage = FileSystemStorage(location='./static/file_storage/')
 # Create your models here.
 
 class User(models.Model):
@@ -52,12 +55,12 @@ class MorphRequest(models.Model):
 
 
 class Pdb(models.Model):
-    pdb_name = models.CharField(max_length=256)
-    pdb_file = models.FileField(null=True)
+    name = models.CharField(max_length=256)
+    file = models.FileField(null=True,storage=my_storage)
 
     @classmethod
     def create_pdb(cls,name,file):
         pdb = cls()
-        pdb.pdb_name = name
-        pdb.pdb_file = file
+        pdb.name = name
+        pdb.file = file
         return pdb

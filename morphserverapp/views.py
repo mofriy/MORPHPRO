@@ -6,6 +6,8 @@ from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.utils.encoding import force_bytes,force_str
 from django.core.mail import send_mail
 from django.contrib import messages
+from Bio import PDB as pdb
+from .algorithms import statistics,pdb_utils
 import datetime
 # Create your views here.
 
@@ -218,13 +220,23 @@ def new_morph(request):
     morph_template = loader.get_template('morphserverapp/morph.html')
     if request.method == 'POST':
 
-        pr_a_name = request.POST.get('protein_a_name')
-        pr_b_name = request.POST.get('protein_b_name')
-        if len(Pdb.objects.filter(pdb_name=pr_a_name)) == 0:
-            pdb1= Pdb.create_pdb(pr_a_name,request.POST.get('protein_a'))
+        pr_a_name = request.POST.get('protein_a_name').lower()
+        pr_b_name = request.POST.get('protein_b_name').lower()
+
+        if not pr_a_name or not pr_b_name:
+            messages.add_message(request,messages.ERROR,'Please enter both protein names')
+            return HttpResponseRedirect('./new')
+
+        if not request.FILES.get('protein_a') or not request.FILES.get('protein_b'):
+            messages.add_message(request,messages.ERROR,'Please choose both files in pdb format')
+            return HttpResponseRedirect('./new')
+
+
+        if len(Pdb.objects.filter(name=pr_a_name)) == 0:
+            pdb1= Pdb.create_pdb(pr_a_name,request.FILES.get('protein_a'))
             pdb1.save()
-        if len(Pdb.objects.filter(pdb_name=pr_b_name)) == 0:
-            pdb2 = Pdb.create_pdb(pr_b_name,request.POST.get('protein_b'))
+        if len(Pdb.objects.filter(name=pr_b_name)) == 0:
+            pdb2 = Pdb.create_pdb(pr_b_name,request.FILES.get('protein_b'))
             pdb2.save()
 
         uid = request.session.get('user_id')
@@ -254,9 +266,22 @@ def morph_request(request,mr_id):
     except MorphRequest.DoesNotExist or User.DoesNotExist:
         return HttpResponseRedirect('../')
 
+    struct_a = pdb.PDBParser().get_structure('ida',Pdb.objects.get(name=mr.protein_a_name).file.path)
+    struct_b = pdb.PDBParser().get_structure('idb',Pdb.objects.get(name=mr.protein_b_name).file.path)
+    bl1 = pdb_utils.__to_broken_line_struct(struct_a)
+    bl2 = pdb_utils.__to_broken_line_struct(struct_b)
+    stats_raw = statistics.analyze(bl1,bl2)
+    stats = [stats_raw['rmsd'],
+                 stats_raw['first protein']['minimum distance between consecutive residues'],
+                 stats_raw['first protein']['maximum distance between consecutive residues'],
+                 stats_raw['first protein']['number of residues'],
+                 stats_raw['second protein']['minimum distance between consecutive residues'],
+                 stats_raw['second protein']['maximum distance between consecutive residues'],
+                 stats_raw['second protein']['number of residues']
+                 ]
 
     return HttpResponse(morph_request_template.render({'user_greeting':request.session.get('name'),
-                                                       'morph_request':mr,'submitter':submitter},request))
-
+                                                       'morph_request':mr,'submitter':submitter,'action':'morph/'+str(mr_id)+'/show',
+                                                       'stats':stats},request))
 
 

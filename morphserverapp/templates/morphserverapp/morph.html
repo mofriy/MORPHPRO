@@ -44,6 +44,14 @@
 </nav>
 </header>
 
+    {% if messages %}
+    <div class="notice  message round">
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+    </div>
+    {% endif %}
+
     <section class="round">
       <script type="text/javascript">
     function toggleSteps() {
@@ -64,7 +72,7 @@
     }
 </script>
 <h1>New morphing</h1>
-<form class="new_morph_request" id="new_morph_request" action="./new" method="post">
+<form class="new_morph_request" id="new_morph_request" action="./new" method="post" enctype="multipart/form-data">
         {% csrf_token %}
     <table>
         <tbody><tr>
@@ -73,7 +81,7 @@
             </td>
             <td>
                 <input size="20" type="text" name="protein_a_name" id="morph_request_protein_a_name">
-                <input type="file" name="protein_a" id="protein_a" accept="chemical/x-pdb" onchange="updateProtoName('protein_a', 'morph_request_protein_a_name')">
+                <input type="file" name="protein_a" id="protein_a" accept="pdb" onchange="updateProtoName('protein_a', 'morph_request_protein_a_name')">
             </td>
         </tr>
         <tr>
@@ -82,7 +90,7 @@
             </td>
             <td>
                 <input size="20" type="text" name="protein_b_name" id="morph_request_protein_b_name">
-                <input type="file" name="protein_b" id="protein_b" accept="chemical/x-pdb" onchange="updateProtoName('protein_b', 'morph_request_protein_b_name')">
+                <input type="file" name="protein_b" id="protein_b" accept="pdb" onchange="updateProtoName('protein_b', 'morph_request_protein_b_name')">
             </td>
         </tr>
         <tr>

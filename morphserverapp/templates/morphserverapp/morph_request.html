@@ -49,7 +49,7 @@
 <strong>Second Protein: </strong>{{ morph_request.protein_b_name }}<br>
 <strong>Number of interpolation steps: </strong> {{morph_request.morphing_count}} <br>
 <h3>Morphing</h3>
-<form action="/jsclient/1" accept-charset="UTF-8" method="post">
+<form action="{{ action }}" accept-charset="UTF-8" method="post">
 <table id="morphing-settings">
     <thead>
     <tr><th>
@@ -81,9 +81,9 @@
 <input type="submit" name="commit" value="Perfrom morph" data-disable-with="Perfrom morph">
 </div>
 </form><h3>Statistics</h3>
-    <ul><li><strong>rmsd</strong> 0.17658757241521528</li></ul>
-    <ul><li><strong>first protein</strong> <ul><li><strong>minimum distance between consecutive residues</strong> 3.8105561273913815</li><li><strong>maximum distance between consecutive residues</strong> 3.8509279401204073</li><li><strong>number of residues</strong> 56</li></ul></li></ul>
-    <ul><li><strong>second protein</strong> <ul><li><strong>minimum distance between consecutive residues</strong> 3.820545668015499</li><li><strong>maximum distance between consecutive residues</strong> 3.85089919662022</li><li><strong>number of residues</strong> 56</li></ul></li></ul>
+    <ul><li><strong>rmsd</strong> {{stats.0}}</li></ul>
+        <ul><li><strong>first protein</strong> <ul><li><strong>minimum distance between consecutive residues</strong> {{stats.1}}</li><li><strong>maximum distance between consecutive residues</strong> {{stats.2}}</li><li><strong>number of residues</strong> {{stats.3}}</li></ul></li></ul>
+        <ul><li><strong>second protein</strong> <ul><li><strong>minimum distance between consecutive residues</strong> {{stats.4}}</li><li><strong>maximum distance between consecutive residues</strong> {{stats.5}}</li><li><strong>number of residues</strong> {{stats.6}}</li></ul></li></ul>
 
 
     </section>
