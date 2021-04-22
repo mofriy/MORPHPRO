@@ -32,7 +32,8 @@ def dist(va, vb):
 
 # квадратичное отклонение точек от центра
 def rms(va):
-    return math.sqrt(sum([sum([v_i**2 for v_i in v]) for v in va])/len(va))
+    c = centroid(va)
+    return math.sqrt(sum([dist(minus(v,c)) for v in va])/len(va))
 
 # для двух цепочек векторов возвращает одну, составленную из попарных минусов
 def minus_lines(l1, l2):

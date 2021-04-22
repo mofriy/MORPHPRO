@@ -1,6 +1,6 @@
 from .basic_operations import *
 
-class CastellanaPevzner():
+class CastellanaPevzner:
 
     def __init__(self,start,finish):
         self.start = start

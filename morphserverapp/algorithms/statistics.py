@@ -1,4 +1,4 @@
-from .basic_operations import minus_lines,rms,dist
+from .basic_operations import *
 
 
 def min_residue_distance(struct):
@@ -36,8 +36,8 @@ def analyze(struct1, struct2):
         stats["rmsd"] = rmsd(struct1, struct2)
     else:
         stats["rmsd"] = "Since the proteins have different number of residues, the alignment was not performed"
-    stats["first protein"] = __analyze_struct(struct1)
-    stats["second protein"] = __analyze_struct(struct2)
+    stats["first protein"] = analyze_struct(struct1)
+    stats["second protein"] = analyze_struct(struct2)
     return stats
 
 def __analyze_struct(struct):
